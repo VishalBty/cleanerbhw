@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cleaner</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body class="container">
+  <div>
+    <label>Original list</label>
+  </div>
+
+  <textarea name="original" style="width:100%;height:40vh" id="original" class="form-control">
+
+  </textarea>
+  <div>
+    <button class="btn my-3" onclick="clean()">Process</button>
+  </div>
+  <div>
+    <label>Cleaned list</label>
+  </div>
+
+  <textarea name="cleaned" style="width:100%;height:40vh" id="cleaned" class="form-control">
+
+  </textarea>
+
+
+</body>
+
+<script>
+  
+  var element = document.querySelector('#original')
+  element.addEventListener('change', (event) => {
+    element.value = element.value.trim()
+  });
+  function clean() {
+    var urls = document.querySelector('#original').value.trim().split("\n")
+    var expression = /^https?:\/\/(www\.)?[\w\d_-]+\.[\w\d_-]+(\.[\w\d-]+)?\/$/g
+    var regex = new RegExp(expression);
+    var newurls = []
+    for(var url of urls) {
+      console.log(!url.match(regex))
+      if(!url.match(regex)) {
+        newurls.push(url)
+      }
+    }
+    return this.document.querySelector('#cleaned').value = newurls.join("\n")
+  }
+</script>
+
+</html>
